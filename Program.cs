@@ -11,8 +11,8 @@ builder.Services.AddRazorComponents()
 builder.Services.AddFluentUIComponents();
 
 builder.Services.AddScoped<FinalFantasyManager>();
-
 builder.Services.AddScoped<FinalFantasyService>();
+
 
 var app = builder.Build();
 

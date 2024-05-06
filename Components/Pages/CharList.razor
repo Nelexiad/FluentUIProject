@@ -4,7 +4,7 @@
 
 
 <PageTitle>List of things</PageTitle>
-<FluentDataGrid Items="@Characters">
+<FluentDataGrid Items="@FilteredItems" ResizableColumns=true RowClass="@rowClass" RowStyle="@rowStyle" GridTemplateColumns="0.2fr 1fr 0.2fr 0.2fr 0.2fr 0.2fr">
     <TemplateColumn>
         @{
             var character = context as Character;
@@ -20,10 +20,22 @@
         }
         
     </TemplateColumn>
-    <PropertyColumn Property="@(p => p.Name)" Sortable="true" />
+    <PropertyColumn Property="@(c => c.Name)" Sortable="true" Filtered="!string.IsNullOrWhiteSpace(nameFilter)" Tooltip="true" Title="Name of the character">
+        <ColumnOptions>
+            <div class="search-box">
+                <FluentSearch Autofocus=true @bind-Value=nameFilter @oninput="HandleCountryFilter" @bind-Value:after="HandleClear" Placeholder="Character name..." />
+            </div>
+        </ColumnOptions>
+    </PropertyColumn>
     <PropertyColumn Property="@(p => p.JapaneseName)" Sortable="true" />
     <PropertyColumn Property="@(p=> p.Age)" Sortable="true" />
     <PropertyColumn Property="@(p=> p.Origin)" Sortable="true" />
-    <PropertyColumn Property="@(p=>p.Description)" Sortable="true" />
+    <PropertyColumn Property="@(p=>p.Description)" Sortable="true" Class="multiline-text" />
 </FluentDataGrid>
+
+<FluentSwitch @bind-Value="@_clearItems"
+              @bind-Value:after="ToggleItemsAsync"
+              UncheckedMessage="Clear all results"
+              CheckedMessage="Restore all results">
+</FluentSwitch>
 

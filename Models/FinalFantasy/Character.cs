@@ -1,6 +1,8 @@
-﻿namespace FluentCumbia.Models.FinalFantasy
+﻿
+
+namespace FluentCumbia.Models.FinalFantasy
 {
-	public class Character
+    public class Character 
 	{
 		public string Id { get; set; }
 		public string Name { get; set; }
